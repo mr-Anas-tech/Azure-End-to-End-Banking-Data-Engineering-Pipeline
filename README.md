@@ -13,7 +13,7 @@
 *
 
 ADF_pipeline_running_VIDEO(
-https://github.com/user-attachments/assets/5f956e90-922a-4ab5-b8f8-f30453e97795
+"https://github.com/user-attachments/assets/5f956e90-922a-4ab5-b8f8-f30453e97795" width="100%" controls></video>
 )
 <img width="1908" height="863" alt="Screenshot 2026-08-03 121754" src="https://github.com/user-attachments/assets/7f418c44-cdf9-4d17-a6e6-70a7db8ad76d" />
 
