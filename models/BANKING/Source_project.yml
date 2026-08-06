@@ -1,0 +1,7 @@
+sources:
+  - name: db_bankingproject
+    catalog: db_bankingproject
+    schema: default
+    tables:
+      - name: raw_banking
+      - name: transactions
