@@ -45,6 +45,10 @@ jobs:
             target: dev
           EOF
 
+      - name: Install dbt Packages
+        run: |
+          dbt deps
+
       - name: Run dbt Build (Models & Tests)
         run: |
           dbt build
