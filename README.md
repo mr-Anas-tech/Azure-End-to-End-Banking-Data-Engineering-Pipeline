@@ -174,6 +174,17 @@ To maintain security, database credentials are never hardcoded. The pipeline rel
 
 ---
 
+* ** CI/CD PIPELINE_VIDEO:
+
+https://github.com/user-attachments/assets/37cabb2c-b6d0-47b1-a486-df7dfe886e8f
+
+
+
+
+<img width="1901" height="676" alt="Screenshot 2026-08-07 121003" src="https://github.com/user-attachments/assets/9957b79f-2a30-48d0-8fe8-b2093a558257" />
+<img width="1680" height="722" alt="Screenshot 2026-08-07 120657" src="https://github.com/user-attachments/assets/1ee8cb69-4c06-45e9-a815-571028f9ae64" />
+
+
 ## 🚀 Local CI Verification
 
 To test the same pipeline commands locally prior to pushing:
@@ -185,16 +196,6 @@ dbt deps
 # Compile models and run tests
 dbt build
 
-
-* ** CI/CD PIPELINE_VIDEO:
-
-https://github.com/user-attachments/assets/37cabb2c-b6d0-47b1-a486-df7dfe886e8f
-
-
-
-
-<img width="1901" height="676" alt="Screenshot 2026-08-07 121003" src="https://github.com/user-attachments/assets/9957b79f-2a30-48d0-8fe8-b2093a558257" />
-<img width="1680" height="722" alt="Screenshot 2026-08-07 120657" src="https://github.com/user-attachments/assets/1ee8cb69-4c06-45e9-a815-571028f9ae64" />
 
 
 
