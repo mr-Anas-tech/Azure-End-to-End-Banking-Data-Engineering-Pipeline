@@ -63,6 +63,73 @@ This phase of the enterprise data pipeline focuses on ingesting raw, complex cus
 * **Business Value:** Establishes a clean "Single Source of Truth" base table ready for dbt transformation models and executive reporting layers.
 
 
+* ** PYSPARK_VIDEO:
+
+https://github.com/user-attachments/assets/3ddaea4f-0550-488c-94d3-60512567d182
+
+
+
+
+
+
+
+
+# Enterprise Banking Analytics Engineering & Data Transformation (dbt)
+
+## 📋 Overview
+This phase models, enriches, and validates raw Lakehouse ingestion tables (`raw_banking` and `transactions`) using dbt (data build tool). By establishing a modular three-tier DAG architecture (Staging ➔ Intermediate ➔ Marts) backed by custom SQL assertions and schema tests, the pipeline delivers audit-ready, low-latency reporting assets for executive decision-making.
+
+---
+
+## 🏗️ Analytics Engineering Lineage (DAG Architecture)
+
+
+
+
+### 1. Source Declaration (`Source_project.yml`)
+* **Functional Description:** Maps raw Delta Lake tables (`raw_banking` and `transactions`) under the `db_bankingproject.default` schema into the dbt ecosystem.
+* **Business Value:** Decouples raw source systems from downstream transformation logic, enabling seamless schema tracking.
+
+### 2. User Staging Layer (`stg_banking_users.sql`)
+* **Functional Description:** Cleans raw user records, casts data types, handles null values using `coalesce` defaults, and standardizes identity fields, locations, registration metrics, login credentials, and profile image URLs.
+* **Business Value:** Creates a clean, standardized baseline table of customer profiles free of missing values or formatting inconsistencies.
+
+### 3. Transaction Staging Layer (`stg_transactions.sql`)
+* **Functional Description:** Casts transaction IDs and user keys, normalizes transaction types using string trimming and lowercasing (`lower(trim(...))`), and standardizes event timestamps.
+* **Business Value:** Guarantees uniform categorization across financial events (Deposits, Withdrawals, Transfers, Payments).
+
+### 4. User Metrics Aggregation Layer (`int_users_transactions_summary.sql`)
+* **Functional Description:** Joins staging tables to calculate user-level transaction statistics, including total volume, deposit/withdrawal totals, net balance estimates, activity timelines (`days_since_last_transaction`), and business rules:
+  * **Account Health Status:** Categorizes users into `Highly Active`, `Dormant`, `Churned`, or `Inactive / New` based on transaction recency.
+  * **Customer Value Tiering:** Segments customers into `Tier 1 (VIP)`, `Tier 2 (Gold)`, `Tier 3 (Standard)`, or `zero_balance`.
+  * **Risk Overdrawn Flag:** Sets `is_overdrawn_flag` to `true` if net estimated balance falls below zero.
+* **Business Value:** Centralizes complex business rules, health scoring, and financial risk flags before exposure to analytical endpoints.
+
+### 5. Master Customer Dimension (`dim_customer_360.sql`)
+* **Functional Description:** Combines staging user attributes with intermediate summary metrics to produce a unified Master Customer View (1 row per `user_id`).
+* **Business Value:** Provides a 360-degree analytical dimension for executive reporting, customer retention analysis, and targeted marketing.
+
+### 6. Transaction Fact Mart (`fct_banking_transactions.sql`)
+* **Functional Description:** Builds a transaction-level fact table enriched with core customer metadata (name, email, location, age) via user key joins (1 row per `transaction_id`).
+* **Business Value:** Enables granular slice-and-dice financial reporting across geographic locations, demographic segments, and event types.
+
+---
+
+## 🧪 Automated Data Quality & Audit Framework
+
+### 1. Custom Singular Data Integrity Assertions (`assert_marts_data_integrity.sql`)
+* **Check 1 (Net Balance Integrity):** Verifies that `estimated_net_balance` in `dim_customer_360` strictly equals `total_deposit_amount - total_withdrawal_amount`.
+* **Check 2 (Non-Negative Transaction Check):** Audits `fct_banking_transactions` to flag any invalid, negative transaction monetary values.
+* **Check 3 (Orphan Transactions Check):** Left joins transaction records against `dim_customer_360` to capture unmatched user accounts.
+* **Business Value:** Prevents broken accounting, orphan records, or corrupted financial figures from reaching production reporting tools.
+
+### 2. Schema Validation Tests (`Marts_Schema.yml`)
+* **Primary Key Constraints:** Enforces `unique` and `not_null` rules on `user_id` and `transaction_id`.
+* **Accepted Values Validation:** Enforces strict domain constraints on categorical fields, including account health statuses (`Highly Active`, `Dormant`, `Churned`, `Inactive / New`) and customer value tiers (`Tier 1 (VIP)`, `Tier 2 (Gold)`, `Tier 3 (Standard)`, `zero_balance`).
+
+
+
+
 
 
 
