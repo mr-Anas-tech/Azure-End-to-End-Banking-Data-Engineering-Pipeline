@@ -138,6 +138,15 @@ https://github.com/user-attachments/assets/1754a7cd-bc3c-49dd-892d-54d0e7f69a0f
 
 
 
+### 🛠️ Custom dbt Macros (Code Reusability)
+- **`classify_transaction_value`**: Implemented a custom Jinja macro to dynamically categorize transactions based on monetary thresholds (`High Value`, `Medium Value`, `Low Value`).
+- **DRY Principle**: Utilized reusable SQL macros across models to avoid redundant `CASE WHEN` statements and maintain code consistency.
+-<img width="1737" height="510" alt="Screenshot 2026-08-07 105159" src="https://github.com/user-attachments/assets/5e395b0d-54b7-45b2-8125-8da7b1207b74" />
+
+
+
+
+
 
 
 
