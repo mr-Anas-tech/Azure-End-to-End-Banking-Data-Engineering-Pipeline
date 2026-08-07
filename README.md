@@ -130,6 +130,14 @@ This phase models, enriches, and validates raw Lakehouse ingestion tables (`raw_
 * **Accepted Values Validation:** Enforces strict domain constraints on categorical fields, including account health statuses (`Highly Active`, `Dormant`, `Churned`, `Inactive / New`) and customer value tiers (`Tier 1 (VIP)`, `Tier 2 (Gold)`, `Tier 3 (Standard)`, `zero_balance`).
 
 
+* ** DBT_VIDEO:
+* 
+
+https://github.com/user-attachments/assets/1754a7cd-bc3c-49dd-892d-54d0e7f69a0f
+
+
+
+
 
 
 
