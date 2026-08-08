@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -12,23 +13,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install Dependencies & Data Exploration Libraries
-        run: |
-          python -m pip install --upgrade pip
-          pip install databricks-cli pyspark pandas pytest 
+      - name: Setup Databricks CLI
+        uses: databricks/setup-cli@v0.2.1
 
       - name: Sync Code to Databricks
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
-          databricks configure --token <<EOF
-          $DATABRICKS_HOST
-          $DATABRICKS_TOKEN
-          EOF
-          databricks workspace import_dir . /Workspace/Production/src --overwrite
+          databricks workspace import-dir . /Workspace/Production/src --overwrite
