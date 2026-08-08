@@ -270,6 +270,28 @@ https://github.com/user-attachments/assets/8a25fca5-ec04-40b2-9c31-84721ee22a76
 
 
 
+# Azure Databricks CI/CD Data Pipeline
+
+This project automates the deployment of PySpark notebooks and scripts from GitHub directly into an Azure Databricks workspace using GitHub Actions.
+
+## 📌 Project Overview
+Instead of manually exporting and importing code into Databricks, this pipeline ensures that every commit pushed to the `main` branch automatically syncs with the target production workspace in real time.
+
+## ⚙️ Key Benefits & Code Impact
+* **Automated Code Sync**: Eliminates manual file uploads. Your latest local code is always up to date in the Databricks workspace.
+* **Production Consistency**: Ensures that code running in the Databricks environment strictly matches the tested source code in GitHub.
+* **Safe Version Control**: Facilitates easy rollbacks—restoring a previous commit on GitHub automatically reverts the codebase in Databricks.
+
+## 🔐 Required GitHub Secrets
+To authenticate the workflow, set up the following secrets in **GitHub Repo > Settings > Secrets and variables > Actions**:
+* `DATABRICKS_HOST`: Your Databricks workspace URL (without trailing slashes).
+* `DATABRICKS_TOKEN`: A Databricks Personal Access Token (PAT) configured with `workspace` scope.
+
+  
+ <img width="1862" height="591" alt="Screenshot 2026-08-08 121934" src="https://github.com/user-attachments/assets/600ce5e9-5f1e-4ef3-bd99-e29548a2040a" />
+
+
+
 
 
 
