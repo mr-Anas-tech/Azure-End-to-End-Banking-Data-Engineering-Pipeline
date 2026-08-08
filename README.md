@@ -145,6 +145,63 @@ https://github.com/user-attachments/assets/1754a7cd-bc3c-49dd-892d-54d0e7f69a0f
 
 
 
+# CI/CD Pipeline Setup for dbt & Databricks
+
+ GitHub Actions to enforce automated continuous integration (CI) and deployment testing for dbt transformations on Azure Databricks.
+
+---
+
+## ⚙️ Automated Workflow (`dbt_ci.yml`)
+
+The CI/CD pipeline triggers automatically on every **Push** or **Pull Request** to the `main` branch. It ensures code quality, dependency resolution, and successful model builds before any changes are merged.
+
+### Workflow Execution Steps
+
+1. **Environment Setup**: Provisions an `ubuntu-latest` runner with Python 3.10 and installs `dbt-core` along with the `dbt-databricks` adapter.
+2. **Dynamic Profile Generation**: Securely constructs a temporary `~/.dbt/profiles.yml` connection file on the runner using GitHub Encrypted Secrets.
+3. **Dependency Installation**: Runs `dbt deps` to fetch required external dbt packages (e.g., `dbt_utils`).
+4. **Build & Test Execution**: Executes `dbt build` to compile SQL models, run transformations, and execute data quality tests against the target Databricks SQL Warehouse.
+
+---
+
+## 🔒 Configured Secrets
+
+To maintain security, database credentials are never hardcoded. The pipeline relies on the following GitHub Repository Secrets (**Settings > Secrets and variables > Actions**):
+
+* **`DBT_HOST`**: Databricks workspace host URL (e.g., `adb-xxxxxxxx.azuredatabricks.net`).
+* **`DBT_TOKEN`**: Databricks Personal Access Token (PAT) for authentication.
+* **`DBT_HTTP_PATH`**: HTTP Path of the target SQL Warehouse / Compute cluster.
+
+---
+
+* ** CI/CD PIPELINE_VIDEO:
+
+https://github.com/user-attachments/assets/37cabb2c-b6d0-47b1-a486-df7dfe886e8f
+
+
+
+
+<img width="1901" height="676" alt="Screenshot 2026-08-07 121003" src="https://github.com/user-attachments/assets/9957b79f-2a30-48d0-8fe8-b2093a558257" />
+<img width="1680" height="722" alt="Screenshot 2026-08-07 120657" src="https://github.com/user-attachments/assets/1ee8cb69-4c06-45e9-a815-571028f9ae64" />
+
+
+## 🚀 Local CI Verification
+
+To test the same pipeline commands locally prior to pushing:
+
+```bash
+# Install dependencies
+dbt deps
+
+# Compile models and run tests
+dbt build
+
+
+
+
+
+
+
 
 
 
