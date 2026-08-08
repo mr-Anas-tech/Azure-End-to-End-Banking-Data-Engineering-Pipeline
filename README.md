@@ -172,7 +172,22 @@ To maintain security, database credentials are never hardcoded. The pipeline rel
 * **`DBT_TOKEN`**: Databricks Personal Access Token (PAT) for authentication.
 * **`DBT_HTTP_PATH`**: HTTP Path of the target SQL Warehouse / Compute cluster.
 
+* ---
+
+### 2. dbt Transformation Pipeline (`README_dbt_Transformation.md`)
+
+# dbt Orchestration
+
 ---
+
+## Orchestration & Data Quality
+
+* **Target Environment**: Deployed against cloud data warehouses with automated compilation and run targets.
+
+---
+
+<img width="1832" height="901" alt="Screenshot 2026-08-08 110932" src="https://github.com/user-attachments/assets/18438670-2b79-4f08-b68e-16dab19b9e91" />
+
 
 * ** CI/CD PIPELINE_VIDEO:
 
@@ -188,13 +203,71 @@ https://github.com/user-attachments/assets/37cabb2c-b6d0-47b1-a486-df7dfe886e8f
 ## 🚀 Local CI Verification
 
 To test the same pipeline commands locally prior to pushing:
-
-```bash
+# bash
 # Install dependencies
 dbt deps
 
 # Compile models and run tests
-dbt build
+dbt build 
+
+
+
+# PySpark Data Lakehouse Movement & Databricks Orchestration
+
+## Overview
+This workflow governs the data movement across the Data Lakehouse storage tiers (**Silver** and **Gold**) using PySpark on Azure Databricks, configured with automated job triggers for scheduled execution.
+
+---
+
+## Data Layer Architecture
+
+* **Silver Layer (Staging & Intermediate)**: Receives cleaned operational data, normalized schemas, and intermediate joins from upstream processes.
+* **Gold Layer (Data Marts)**: Stores final aggregated business metrics, transactional facts (`fct_`), and dimension models ready for analytical querying and reporting.
+
+---
+
+## Execution & Workflow Mechanics
+
+1. **Storage Tiering**:
+   * Intermediate transformed datasets are persisted into the `silver` storage container.
+   * Analytical business marts are formatted and written directly to the `gold` container and Databricks Metastore catalog (`db_bankingproject`).
+
+2. **Automated Trigger Setup**:
+   * **Databricks Jobs Engine**: A scheduled workflow trigger is configured to execute notebook runs at defined intervals.
+   * **State Handling**: Ensures idempotent writes to prevent record duplication during scheduled runs.
+
+---
+
+## Security Configuration
+
+Secrets are dynamically accessed at runtime via Azure Key Vault integration using Databricks Secret Scopes:
+
+# python
+# Secure environment setup
+storage_account_name = "bankingprojectstacc"
+storage_account_key = dbutils.secrets.get(scope='keyvault-scope', key='storage-access-key')
+
+# Spark session authentication
+spark.conf.set(
+    f"fs.azure.account.key.{storage_account_name}.dfs.core.windows.net", 
+    storage_account_key
+)
+
+
+* ** TRIGER_PYSPARK:
+https://github.com/user-attachments/assets/3ab92e90-d243-4807-8c13-38126aac7b54
+
+
+* ** Data Landing in gold and silver containers/layers:
+
+
+https://github.com/user-attachments/assets/8a25fca5-ec04-40b2-9c31-84721ee22a76
+
+
+
+
+
+
 
 
 
