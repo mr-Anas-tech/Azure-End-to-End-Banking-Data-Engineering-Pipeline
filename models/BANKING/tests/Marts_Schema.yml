@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: mart_customer_360
+  - name: dim_customer_360
     description: "Master Customer 360 Dimension - 1 Row per user_id"
     columns:
       - name: user_id
@@ -44,7 +44,7 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('mart_customer_360')
+              to: ref('dim_customer_360')
               field: user_id
 
       - name: amount

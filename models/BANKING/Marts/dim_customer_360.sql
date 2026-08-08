@@ -63,3 +63,4 @@ select
 from staging_users u
 left join intermediate_summary i
     on u.user_id = i.user_id
+qualify row_number() over (partition by u.user_id order by i.last_transaction_at desc nulls last) =1
