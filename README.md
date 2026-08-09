@@ -325,7 +325,9 @@ An enterprise-grade cloud data warehousing and analytics platform engineered on 
 
 * **SYNAPSE_VIDEO:
 
-Uploading Screen Recording 2026-08-09 060541.mp4…
+https://github.com/user-attachments/assets/925d587c-a6c1-4b34-8a59-a35613e5fcce
+
+
 
 
 
