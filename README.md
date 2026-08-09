@@ -10,7 +10,8 @@
 * **Ingestion Architecture:** Scheduled Azure Data Factory (ADF) pipeline running on a 1-hour recurrence cycle, pushing raw data directly into **Azure Data Lake Storage Gen2 (Bronze Layer)**.
 
 * 
-*
+<img width="1905" height="732" alt="Screenshot 2026-08-09 102256" src="https://github.com/user-attachments/assets/db944659-6569-42ea-a8ff-5dd43675a40b" />
+
 <img width="1908" height="863" alt="Screenshot 2026-08-03 121754" src="https://github.com/user-attachments/assets/7f418c44-cdf9-4d17-a6e6-70a7db8ad76d" />
 
 
