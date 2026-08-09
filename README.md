@@ -291,12 +291,41 @@ To authenticate the workflow, set up the following secrets in **GitHub Repo > Se
  <img width="1862" height="591" alt="Screenshot 2026-08-08 121934" src="https://github.com/user-attachments/assets/600ce5e9-5f1e-4ef3-bd99-e29548a2040a" />
 
 
+ # Azure Synapse Analytics 
+
+An enterprise-grade cloud data warehousing and analytics platform engineered on Azure Synapse Analytics. This system decouples storage from compute, implements zero-trust identity authentication, and automates continuous data marts execution.
+
+---
+
+## 🏗️ Architecture & System Design
+---
+
+## 🔒 Enterprise Security & Identity Model
+
+* **Password-less Access**: Eliminates hardcoded storage keys and SAS tokens by utilizing Azure System-Assigned Managed Identity (`IDENTITY = 'Managed Identity'`).
+* **Database Master Key**: Encrypts scoped credentials at the database level to ensure strict compliance and zero credential leakage in repositories.
+
+---
+
+## ⚡ Serverless Data Lakehouse Engine
+
+* **External Data Source**: Establishes high-throughput ABFS connection directly to the `gold` container in Azure Data Lake Storage Gen2.
+* **Storage-Decoupled Querying**: Employs `OPENROWSET` over columnar Parquet files, allowing query execution on data lakes without physical ingestion or storage duplication costs.
+* **Dimensional Data Marts**:
+  * `dim_customer_360`: Unified 360-degree customer profile dimension.
+  * `fct_banking_transactions`: High-performance transactional fact view for BI consumers.
+
+---
+
+## 🔄 Automated Pipeline Orchestration
+
+* **Execution Pipeline (`banking_trig`)**: Validated production pipeline handling downstream dataset refreshes.
+* **Scheduled Triggers (`banking_landing`)**: Automated batch execution cycles running at defined intervals for continuous data loading.
 
 
+* **SYNAPSE_VIDEO:
 
-
-
-
+Uploading Screen Recording 2026-08-09 060541.mp4…
 
 
 
