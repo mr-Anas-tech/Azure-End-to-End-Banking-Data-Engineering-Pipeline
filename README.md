@@ -1,31 +1,42 @@
 # Enterprise Banking Data Engineering & Analytics Platform
 
-## 🏛️ System Architecture Diagram
+[ REST API (Source) ]
+         │
+         ▼ (Hourly Trigger)
+[ Azure Data Factory ]
+         │
+         ▼
+[ ADLS Gen2 - Bronze Layer ]
+         │
+         ▼ (PySpark - Flatten & Clean)
+[ Azure Databricks - Silver Layer ]
+         │
+         ▼ (dbt - Data Modeling & Quality Tests)
+[ Azure Databricks - Gold Layer ]
+         │
+         ├─────────────────────────────────────────┐
+         ▼                                         ▼
+[ Azure Synapse Analytics ]             [ Python Analytics Script ]
+         │                                         │
+         └────────────────────┬────────────────────┘
+                              ▼
+                   [ Power BI Dashboard ]
 
-flowchart TD
-    subgraph Ingestion ["1. Data Ingestion (Bronze Layer)"]
-        API["Public REST API\n(randomuser.me)"] -->|1-Hour Recurrence Cycle| ADF["Azure Data Factory\n(ADF Pipeline)"]
-        ADF -->|Raw Nested JSON| ADLS_Bronze[("ADLS Gen2\n(Bronze Container)")]
-    end
-    subgraph Processing ["2. Processing & Lakehouse (Silver/Gold)"]
-        ADLS_Bronze --> PySpark["Azure Databricks\n(PySpark Engine)"]
-        PySpark -->|Unnest / Flatten / Clean| Delta_Silver[("Delta Lake\n(Silver Layer)")]
-        PySpark -->|Synthetic Transaction Engine| Delta_Silver
-        Delta_Silver --> dbt["dbt Core / Databricks SQL\n(Staging -> Int -> Marts)"]
-        dbt -->|Quality Assertions & Schema Tests| Delta_Gold[("Delta Lake\n(Gold Layer / Metastore)")]
-    end
-    subgraph Serving ["3. Serving & Enterprise Analytics"]
-        Delta_Gold --> Synapse["Azure Synapse Analytics\n(Serverless / Managed Identity)"]
-        Delta_Gold --> Python_Analytics["Python Risk Profiling\n(PyODBC / Entra ID Tokens)"]
-        Synapse --> PowerBI["Power BI Executive Dashboard"]
-        Python_Analytics --> PowerBI
-    end
-    subgraph Automation ["4. CI/CD & Security"]
-        GHA["GitHub Actions Workflows\n(dbt & Notebook CI/CD)"] -.->|Automated Deploy & Test| dbt
-        GHA -.->|Auto Sync| PySpark
-        KV["Azure Key Vault / Secret Scopes"] -.->|Dynamic Key Retrieval| ADF
-        KV -.->|Dynamic Key Retrieval| PySpark
-    end
+
+
+## 🛠️ Tools Used & Core Function
+
+| Tool / Technology | Purpose & Role in Pipeline |
+| :--- | :--- |
+| **Azure Data Factory (ADF)** | Automated hourly REST API ingestion and pipeline orchestration. |
+| **Azure Data Lake Storage Gen2** | Multi-tier Medallion architecture storage (`Bronze`, `Silver`, `Gold`). |
+| **Azure Databricks & PySpark** | Large-scale JSON parsing, array flattening, and synthetic transactions simulation. |
+| **dbt (data build tool)** | Modular SQL modeling (`Staging` $\rightarrow$ `Intermediate` $\rightarrow$ `Marts`) and quality testing. |
+| **Azure Synapse Analytics** | Serverless SQL engine using Managed Identity for zero-cost storage querying. |
+| **GitHub Actions** | CI/CD automation for dbt compilation, test execution, and Databricks notebook sync. |
+| **Azure Key Vault & Entra ID** | Zero-trust authentication, secret scopes, and dynamic MSAL token access. |
+| **Python (Pandas, PyODBC)** | Statistical risk profiling and secure database integration. |
+| **Power BI** | Executive reporting dashboard for processed volume ($12M), liquidity, and demographic KPIs. |                
 
 
 ## 📊 Dataset & Ingestion Overview
