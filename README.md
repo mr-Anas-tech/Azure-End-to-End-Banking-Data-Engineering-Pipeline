@@ -2,13 +2,11 @@
 
 ## 🏛️ System Architecture Diagram
 
-```mermaid
 flowchart TD
     subgraph Ingestion ["1. Data Ingestion (Bronze Layer)"]
         API["Public REST API\n(randomuser.me)"] -->|1-Hour Recurrence Cycle| ADF["Azure Data Factory\n(ADF Pipeline)"]
         ADF -->|Raw Nested JSON| ADLS_Bronze[("ADLS Gen2\n(Bronze Container)")]
     end
-
     subgraph Processing ["2. Processing & Lakehouse (Silver/Gold)"]
         ADLS_Bronze --> PySpark["Azure Databricks\n(PySpark Engine)"]
         PySpark -->|Unnest / Flatten / Clean| Delta_Silver[("Delta Lake\n(Silver Layer)")]
@@ -16,14 +14,12 @@ flowchart TD
         Delta_Silver --> dbt["dbt Core / Databricks SQL\n(Staging -> Int -> Marts)"]
         dbt -->|Quality Assertions & Schema Tests| Delta_Gold[("Delta Lake\n(Gold Layer / Metastore)")]
     end
-
     subgraph Serving ["3. Serving & Enterprise Analytics"]
         Delta_Gold --> Synapse["Azure Synapse Analytics\n(Serverless / Managed Identity)"]
         Delta_Gold --> Python_Analytics["Python Risk Profiling\n(PyODBC / Entra ID Tokens)"]
         Synapse --> PowerBI["Power BI Executive Dashboard"]
         Python_Analytics --> PowerBI
     end
-
     subgraph Automation ["4. CI/CD & Security"]
         GHA["GitHub Actions Workflows\n(dbt & Notebook CI/CD)"] -.->|Automated Deploy & Test| dbt
         GHA -.->|Auto Sync| PySpark
