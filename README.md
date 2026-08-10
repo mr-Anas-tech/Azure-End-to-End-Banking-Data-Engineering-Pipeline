@@ -331,6 +331,71 @@ https://github.com/user-attachments/assets/925d587c-a6c1-4b34-8a59-a35613e5fcce
 
 
 
+# Enterprise Lakehouse & Executive Analytics Platform
+
+## Overview
+An end-to-end Enterprise Data Platform built to ingest, transform, analyze, and visualize high-volume banking and transaction datasets. The pipeline processes multi-million dollar transaction volumes through a modern lakehouse architecture, leveraging automated data transformation workflows, advanced Python statistical risk profiling, and an interactive executive Power BI dashboard.
+
+---
+
+## Executive Analytics & Data Insights
+
+### 1. Net Cash Flow & Liquidity Generation by Country
+* **Liquidity Generation Leaders:** **Denmark**, **United States**, and **United Kingdom** generate the highest positive net liquidity (~+$200k), indicating strong capital retention and low churn risk.
+* **Capital Outflow Risks:** **Iran**, **Canada**, and **Finland** face severe negative net cash flows (~-$200k), where customer withdrawals significantly outpace incoming deposits.
+* **Strategic Recommendation:** Scale high-yield savings and investment products in top-tier liquidity markets (Denmark/US). Deploy retention campaigns and targeted transfer perks in high-outflow regions to reduce capital flight.
+
+### 2. Customer Distribution & Market Penetration
+* **Core User Base:** The **United States**, **Spain**, and **Ireland** lead in active account volume, maintaining over 300 active users each.
+* **Underrepresented Markets:** **Mexico** displays the lowest overall user adoption (~180 customers), despite showing moderate transactional activity.
+* **Strategic Recommendation:** Focus marketing and customer acquisition budgets on high-conversion markets (US, UK, Spain), while launching localized onboarding initiatives in low-volume regions like Mexico.
+
+### 3. Demographic Value Driver Analysis
+* **Primary Revenue Drivers:** Customers aged **31–45** account for the highest average transaction volume (~$16.5k), demonstrating high long-term value and stability.
+* **Strategic Recommendation:** Design tailored financial products—such as premium credit tiers for the 31–45 cohort and simplified, secure wealth-preservation services for the 60+ demographic—to maximize Customer Lifetime Value (CLV).
+
+### 4. Acquisition Cohort & Growth Dynamics
+* **Peak Onboarding Era:** Customer registrations hit an all-time surge around 2009–2010, surpassing 400+ new account signups in a single year.
+* **Baseline Stability:** From 2011 to 2022, account registrations remained stable (200–300 users/year), followed by a sharp drop in the most recent acquisition cycle.
+* **Strategic Recommendation:** Audit the onboarding funnel and marketing spend to identify root causes of the recent acquisition decline, and reactivate high-conversion acquisition channels used during peak growth phases.
+
+---
+
+## Power BI Executive Dashboard Highlights
+
+| Metric | Value | Business Focus |
+| :--- | :--- | :--- |
+| **Total Volume Processed** | **$12M** | Platform-wide monetary throughput |
+| **Total Transactions** | **4,999** | End-to-end processed transaction log |
+| **Total Customers** | **615** | Active customer account base |
+| **Healthy Customer Count** | **615** | Zero non-performing / defaulted accounts |
+
+- **Transaction Category Split:** Low-Value transactions account for **95.82%** ($12M) of total activity, while Medium-Value transactions represent **4.18%** ($1M).
+- **Transaction Types:** Monitored seamlessly across **Withdrawals**, **Payments**, **Deposits**, and **Transfers** to evaluate real-time regional liquidity balances.
+
+---
+
+## Security & Best Practices
+- **Entra ID Token Authentication:** Database access is authenticated dynamically using Azure Entra ID (MSAL tokens) via `InteractiveBrowserCredential`.
+- **Data Governance:** Sensitive parameters, tokens, and tenant configurations are securely masked and loaded via environment variables.
+
+
+# Dashboard_LINK:
+https://drive.google.com/file/d/14IdzzKbl1W56FWYnYJDiH5R7nAEdNIdY/view?usp=sharing
+
+
+<img width="1095" height="372" alt="newplot (12)" src="https://github.com/user-attachments/assets/3eee8ba8-30f2-43b9-a7e1-52ea4ce61d31" />
+
+
+# Analytics_ Video:
+
+https://github.com/user-attachments/assets/a25ec678-f6e0-4329-9f99-cc6dee43091d
+
+
+
+
+
+
 
 
 
