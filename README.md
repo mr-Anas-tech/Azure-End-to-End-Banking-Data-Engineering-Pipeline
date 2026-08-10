@@ -1,26 +1,26 @@
 # Enterprise Banking Data Engineering & Analytics Platform
 
 [ REST API (Source) ]
-         │
-         ▼ (Hourly Trigger)
+│
+▼ (Hourly Trigger)
 [ Azure Data Factory ]
-         │
-         ▼
+│
+▼
 [ ADLS Gen2 - Bronze Layer ]
-         │
-         ▼ (PySpark - Flatten & Clean)
+│
+▼ (PySpark - Flatten & Clean)
 [ Azure Databricks - Silver Layer ]
-         │
-         ▼ (dbt - Data Modeling & Quality Tests)
+│
+▼ (dbt - Data Modeling & Quality Tests)
 [ Azure Databricks - Gold Layer ]
-         │
-         ├─────────────────────────────────────────┐
-         ▼                                         ▼
+│
+├─────────────────────────────────────────┐
+▼                                         ▼
 [ Azure Synapse Analytics ]             [ Python Analytics Script ]
-         │                                         │
-         └────────────────────┬────────────────────┘
-                              ▼
-                   [ Power BI Dashboard ]
+│                                         │
+└────────────────────┬────────────────────┘
+▼
+[ Power BI Dashboard ]
 
 
 
